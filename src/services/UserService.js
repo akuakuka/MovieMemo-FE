@@ -31,6 +31,7 @@ const sendFriendRequest = async id => {
     return e;
   }
 };
+
 const searchForUsers = async searchterm => {
   console.log('SearchForUsers');
   try {
@@ -41,4 +42,30 @@ const searchForUsers = async searchterm => {
     console.log(e);
   }
 };
-export default { getMyFriends, sendFriendRequest, searchForUsers };
+const getMyGroups = async () => {
+  console.log('Service - Get My groups');
+  try {
+    const response = await a.get(`group/`);
+    console.log(response.data);
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+const createNewGroup = async name => {
+  console.log('createnewgroup');
+  try {
+    const response = await a.post(`group/${name}`);
+    console.log(response.data);
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+export default {
+  getMyFriends,
+  sendFriendRequest,
+  searchForUsers,
+  getMyGroups,
+  createNewGroup,
+};

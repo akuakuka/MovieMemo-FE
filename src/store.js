@@ -5,11 +5,13 @@ import MovieReducer from './reducers/MovieReducer';
 import UserReducer from './reducers/UserReducer';
 import MovieSearchReducer from './reducers/MovieSearchReducer';
 import UserSearchReducer from './reducers/UserSearchReducer';
+import GroupReducer from './reducers/GroupReducer';
 const reducer = combineReducers({
   movies: MovieReducer,
   users: UserReducer,
   movieSearch: MovieSearchReducer,
   userSearch: UserSearchReducer,
+  groups: GroupReducer,
 });
 const store = createStore(
   reducer,

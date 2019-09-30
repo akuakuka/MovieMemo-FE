@@ -1,10 +1,20 @@
 import React from 'react';
-import { Card, Icon, Image } from 'semantic-ui-react';
+import { Card, Image, Button } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-//import { Form } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { newMovie } from '../reducers/MovieReducer';
+const mapStateToProps = state => {
+  return {
+    state,
+  };
+};
+const mapDispatchToProps = {
+  newMovie,
+};
 const Movie = props => {
-  console.log('moviecomponentinsisäl');
-  console.log(props);
+  const handleSaveMovie = () => {
+    props.newMovie(props.movie.imdbID);
+  };
   return (
     <Card>
       <Image src={props.movie.Poster} wrapped ui={false} />
@@ -14,8 +24,13 @@ const Movie = props => {
           <span className="date">{props.movie.Title}</span>
         </Card.Meta>
         <Card.Description>Type : {props.movie.Type}</Card.Description>
+        <Button onClick={handleSaveMovie}>Save To MyMovies</Button>
       </Card.Content>
     </Card>
   );
 };
-export default Movie;
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Movie);

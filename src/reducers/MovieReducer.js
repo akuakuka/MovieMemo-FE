@@ -3,6 +3,7 @@ import MovieService from '../services/MovieService.js';
 const MovieReducer = (state = [], action) => {
   switch (action.type) {
     case 'NEW_MOVIE':
+      console.log(action.data);
       return [...state, action.data];
     case 'REMOVE_MOVIE':
       console.log('REMOVE_NOTE TODO!!!!!!!');
@@ -25,11 +26,12 @@ export const initializeMovies = () => {
   };
 };
 export const newMovie = content => {
+  console.log(content);
   return async dispatch => {
     const newMovie = await MovieService.saveToMyMovies(content);
     dispatch({
       type: 'NEW_MOVIE',
-      data: newMovie,
+      data: newMovie._id,
     });
   };
 };

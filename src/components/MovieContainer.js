@@ -1,9 +1,8 @@
 import React from 'react';
-import { Form } from 'semantic-ui-react';
+import { Form, Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { searchMovie } from '../reducers/MovieSearchReducer';
 import Movie from './Movie';
-import { jsxEmptyExpression } from '@babel/types';
 const mapStateToProps = state => {
   return {
     state,
@@ -14,48 +13,18 @@ const mapDispatchToProps = {
 };
 const MovieContainer = props => {
   const addMovie = async event => {
-    console.log(event.target.movie.value);
     event.preventDefault();
-    //  const content = event.target.note.value;
-    //event.target.note.value = '';
     props.newMovie(event.target.movie.value);
   };
   const handleSearch = async event => {
     console.log(event.target.movie.value);
     event.preventDefault();
-    //  const content = event.target.note.value;
-    //event.target.note.value = '';
-    const result = await props.searchMovie(event.target.movie.value);
-    console.log(result);
-    console.log(props.state);
+    props.searchMovie(event.target.movie.value);
     if (props.state) {
-      console.log('IFFIN SISÖÄL');
-      // props.state.movieSearch.map((movie) => (<Movie key={movie.id} movie={movie} />)
       props.state.movieSearch.map(movie => {
-        console.log(movie);
         return <Movie key={movie.id} movie={movie} />;
       });
     }
-  };
-
-  const drawMovies = () => {
-    console.log(props.state);
-    console.log(typeof props.state.movies);
-    console.log(props.movies);
-    console.log('array');
-    console.log(Array.isArray(props.state.movies));
-    if (Array.isArray(props.state.movies)) {
-      console.log('ISARRAY?=!');
-      props.state.movies.map(movie => (
-        <Movie key={movie.id} movie={movie} />
-      ));
-    }
-    // return (
-    //   <div className="App">{JSON.stringify(props.state.movies)}</div>
-    // );
-    // props.state.movies.movies.map(movie => {
-    //   return <Movie key={movie.id} movie={movie} />;
-    // });
   };
   return (
     <div className="App">
@@ -72,11 +41,19 @@ const MovieContainer = props => {
       ) : (
         <div>
           Search results:
-          {JSON.stringify(props.state.searchMovie)}
-          {props.state.movieSearch.map(movie => {
-            console.log(movie);
-            return <Movie key={movie.id} movie={movie} />;
-          })}
+          <Grid columns="5">
+            {props.state.movieSearch.map((movie, i) => {
+              return (
+                <Grid.Column key={i}>
+                  <Movie
+                    key={movie.id}
+                    movie={movie}
+                    addMovie={addMovie}
+                  />
+                </Grid.Column>
+              );
+            })}
+          </Grid>
         </div>
       )}
     </div>
