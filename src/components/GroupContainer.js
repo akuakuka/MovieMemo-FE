@@ -22,7 +22,7 @@ const GroupContainer = props => {
       "GROUP CONTAINER"
       {console.log(props.state)}
       <Form onSubmit={handleCreateGroup}>
-        <Form.Input name="group" label="Search for movies" />
+        <Form.Input name="group" label="Create new Group" />
         <Form.Button>Submit</Form.Button>
       </Form>
       {props.state.groups.map(group => {

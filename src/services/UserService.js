@@ -7,12 +7,10 @@ const a = axios.create({
     Accept: 'application/json',
     'Access-Control-Allow-Origin': baseURL,
   },
-}); //http://localhost:3001/api/omdb/movies/
+});
 const getMyFriends = async () => {
-  console.log('GetMyFriends');
   try {
     const response = await a.get('');
-    console.log(response.data);
     return response.data;
   } catch (e) {
     console.error(e);
@@ -20,43 +18,57 @@ const getMyFriends = async () => {
   }
 };
 const sendFriendRequest = async id => {
-  console.log('SendFriendRequsst');
-  console.log(id);
   try {
     const response = await a.get(`/${id}`);
-    console.log(response.data);
     return response.data;
   } catch (e) {
     console.error(e);
     return e;
   }
 };
-
+const localRegister = async reg => {
+  try {
+    const response = await a.post(`localregister/`, reg);
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+const localLogin = async reg => {
+  try {
+    const response = await a.post(`locallogin/`, reg);
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
 const searchForUsers = async searchterm => {
-  console.log('SearchForUsers');
   try {
     const response = await a.get(`search/${searchterm}`);
-    console.log(response.data);
     return response.data;
   } catch (e) {
     console.log(e);
   }
 };
 const getMyGroups = async () => {
-  console.log('Service - Get My groups');
   try {
     const response = await a.get(`group/`);
-    console.log(response.data);
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+const getMe = async () => {
+  try {
+    const response = await a.get(`getme/`);
     return response.data;
   } catch (e) {
     console.log(e);
   }
 };
 const createNewGroup = async name => {
-  console.log('createnewgroup');
   try {
     const response = await a.post(`group/${name}`);
-    console.log(response.data);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -68,4 +80,7 @@ export default {
   searchForUsers,
   getMyGroups,
   createNewGroup,
+  localRegister,
+  localLogin,
+  getMe,
 };
